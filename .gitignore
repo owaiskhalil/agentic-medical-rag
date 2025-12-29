@@ -1,0 +1,21 @@
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables
+.env
+
+# Chroma local database (generated locally)
+chroma_db/
+
+# Streamlit 
+.streamlit/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store

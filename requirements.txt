@@ -1,0 +1,10 @@
+numpy<2.0
+torch==2.2.1+cpu
+sentence-transformers
+chromadb
+langgraph
+langchain-community
+openai
+google-search-results
+python-dotenv
+streamlit
