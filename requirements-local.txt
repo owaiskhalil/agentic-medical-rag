@@ -1,5 +1,5 @@
 numpy<2.0
-torch
+torch==2.2.1+cpu
 sentence-transformers
 chromadb
 langgraph
