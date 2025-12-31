@@ -1,5 +1,6 @@
 numpy<2.0
-torch
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.2.1+cpu
 sentence-transformers
 chromadb
 langgraph
