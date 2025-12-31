@@ -3,6 +3,16 @@
 import streamlit as st
 from agent import run_agentic_query
 
+from pathlib import Path
+import subprocess
+
+CHROMA_PATH = Path("chroma_db")
+
+if not CHROMA_PATH.exists():
+    print("Chroma DB not found. Seeding now...")
+    subprocess.run(["python", "seed_chroma.py"], check=True)
+else:
+    print("Chroma DB already exists. Skipping seeding.")
 
 st.set_page_config(page_title="Agentic Medical RAG", layout="centered")
 

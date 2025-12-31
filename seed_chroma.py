@@ -47,6 +47,15 @@ qna_collection = client.get_or_create_collection(name=QNA_COLLECTION)
 device_collection = client.get_or_create_collection(name=DEVICE_COLLECTION)
 
 # ----------------------------
+# Helper: Check if collection is already created with loaded data
+# ----------------------------
+def collection_is_empty(collection) -> bool:
+    try:
+        return collection.count() == 0
+    except Exception:
+        return True
+
+# ----------------------------
 # Helper: load text chunks
 # ----------------------------
 def load_chunks(file_path):
@@ -113,11 +122,17 @@ if __name__ == "__main__":
     if not DEVICE_FILE.exists():
         raise FileNotFoundError(f"Missing file: {DEVICE_FILE}")
 
-    qna_chunks = load_chunks(QNA_FILE)
-    device_chunks = load_chunks(DEVICE_FILE)
-
-    seed_collection(qna_collection, qna_chunks, "medical_qna",BATCH_SIZE)
-    seed_collection(device_collection, device_chunks, "medical_devices")
+    if collection_is_empty(qna_collection):
+        qna_chunks = load_chunks(QNA_FILE)
+        seed_collection(qna_collection, qna_chunks, "medical_qna", BATCH_SIZE)
+    else:
+        print("QnA collection already seeded. Skipping.")
+    
+    if collection_is_empty(device_collection):
+        device_chunks = load_chunks(DEVICE_FILE)
+        seed_collection(device_collection, device_chunks, "medical_devices", BATCH_SIZE)
+    else:
+        print("Device collection already seeded. Skipping.")
 
     print("\n🎉 Chroma DB seeding complete.")
     print(f"📂 DB location: {CHROMA_PATH}")
